@@ -50,6 +50,8 @@ def home():
         days = request.form.get('days', '')
         if days == 'current_location':
             current_location_weather = get_curr_location_weather()
+        elif days == "":
+            weather_data = get_weather(city)
         elif days == "1":
             weather_data = get_weather(city)
         else:

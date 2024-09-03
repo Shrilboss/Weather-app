@@ -39,6 +39,7 @@
         <h1>Weather App</h1>
         <!-- Intro Text -->
         <p class="intro-text">Select "Current Location Weather" or enter a "city" name to get weather</p>
+        <p class="intro-text"> Note: The forecasted weather are predictions and may not be accurate</p>
         <!-- Form Styles -->
         <form method="POST" onsubmit="return validateForm(event)">
             <input type="text" id = "city" name="city" placeholder="Enter city">
@@ -46,9 +47,9 @@
                 <option value="" selected>Select an option</option>
                 <option value="current_location">Current Location Weather</option>
                 <option value="1">Get Weather</option>
-                <option value="3">Next 3 Days</option>
-                <option value="5">Next 5 Days</option>
-                <option value="10">Next 10 Days</option>
+                <option value="3">Forecast next 3 Days</option>
+                <option value="5">Forecast next 5 Days</option>
+                <option value="10">Forecast next 10 Days</option>
             </select>
             <button type="submit">Get Weather</button>
         </form>
