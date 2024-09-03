@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+}
+.weather-info {
+    margin-top: 20px;
+}
+.forecast-option {
+    margin-bottom: 20px;
+}
+.weather-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust spacing between boxes as needed */
+}
+.weather-box {
+    border: 2px solid #000; /* Adjust border style and color as needed */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual appeal */
+    width: calc(33% - 10px); /* Adjust width to fit three boxes per row, including gap */
+    box-sizing: border-box;
+}
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+footer a img {
+    margin-top: 10px;
+}

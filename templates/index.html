@@ -4,44 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        .weather-info {
-            margin-top: 20px;
-        }
-        .forecast-option {
-            margin-bottom: 20px;
-        }
-        .weather-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Adjust spacing between boxes as needed */
-        }
-        .weather-box {
-            border: 2px solid #000; /* Adjust border style and color as needed */
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual appeal */
-            width: calc(33% - 10px); /* Adjust width to fit three boxes per row, including gap */
-            box-sizing: border-box;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
