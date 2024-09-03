@@ -73,6 +73,10 @@ The application will be running at `http://127.0.0.1:5000/` by default.
 - **Select "Current Location Weather"** to retrieve weather information for your current location.
 - **View weather details** for popular cities like New York, London, Paris, and Tokyo.
 
+## 3. Video demo
+
+- Check out [Demo Video](demo\Weather-app-demo.mp4) to see the app in action!
+  
 ## Credits
 
 This application uses the [WeatherAPI](https://www.weatherapi.com/) for fetching weather data. Special thanks to WeatherAPI for providing free weather information.
