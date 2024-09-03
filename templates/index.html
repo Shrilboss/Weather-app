@@ -4,15 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <!-- CSS Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- JavaScript validation -->
+    <script>
+        function validateForm(event) {
+            const cityInput = document.getElementById('city');
+            const daysSelect = document.getElementById('days');
+            const selectedValue = daysSelect.value;
+            
+            // Check if the selected value is not for current location and city input is empty
+            if (selectedValue !== 'current_location' && cityInput.value.trim() === '') {
+                event.preventDefault(); // Prevent form submission
+                // alert('Please enter city value');
+                document.getElementById('error-overlay').style.display = 'flex';
+                document.getElementById('error-message').textContent = 'Please enter city value';
+                return false;
+            }
+            return true;
+        }
+    
+        // Attach validation to form submit event
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('form').addEventListener('submit', validateForm);
+        });
+
+        function closeErrorOverlay() {
+            document.getElementById('error-overlay').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Weather App</h1>
-        <form method="POST">
-            <input type="text" name="city" placeholder="Enter city" required>
-            <select name="days">
-                <option value="1">Current Weather</option>
+        <!-- Intro Text -->
+        <p class="intro-text">Select "Current Location Weather" or enter a "city" name to get weather</p>
+        <!-- Form Styles -->
+        <form method="POST" onsubmit="return validateForm(event)">
+            <input type="text" id = "city" name="city" placeholder="Enter city">
+            <select id = "days" name="days">
+                <option value="" selected>Select an option</option>
+                <option value="current_location">Current Location Weather</option>
+                <option value="1">Get Weather</option>
                 <option value="3">Next 3 Days</option>
                 <option value="5">Next 5 Days</option>
                 <option value="10">Next 10 Days</option>
@@ -20,46 +53,72 @@
             <button type="submit">Get Weather</button>
         </form>
 
-        {% if weather_data %}
-        <div class="weather-info">
-            <h2>Weather in {{ weather_data['location']['name'] }}</h2>
-            <p>Temperature: {{ weather_data['current']['temp_c'] }}°C</p>
-            <p>Condition: {{ weather_data['current']['condition']['text'] }}</p>
-            <img src="{{ weather_data['current']['condition']['icon'] }}" alt="Weather icon">
-            <p>Humidity: {{ weather_data['current']['humidity'] }}%</p>
-            <p>Wind: {{ weather_data['current']['wind_kph'] }} kph {{ weather_data['current']['wind_dir'] }}</p>
+        <!-- Error Overlay -->
+        <div id="error-overlay" class="error-overlay">
+            <div class="error-popup">
+                <button class="close-btn" onclick="closeErrorOverlay()">&times;</button>
+                <p id="error-message"></p>
+            </div>
         </div>
-        {% endif %}
-
-        {% if forecast_data %}
+        
+        <!-- Weather Data -->
         <div class="weather-info">
-            <h2>Weather Forecast in {{ forecast_data['location']['name'] }}</h2>
-            <ul>
-                {% for day in forecast_data['forecast']['forecastday'] %}
-                <li>
-                    <strong>{{ day['date'] }}:</strong>
-                    <p>Temperature: {{ day['day']['avgtemp_c'] }}°C</p>
-                    <p>Condition: {{ day['day']['condition']['text'] }}</p>
-                    <img src="{{ day['day']['condition']['icon'] }}" alt="Weather icon">
-                </li>
-                {% endfor %}
-            </ul>
+            {% if current_location_weather %}
+            <div class="weather-box">
+                <h2>Weather in Your Location</h2>
+                <p>Nearest City Found: {{ current_location_weather['location']['name'] }}</p>
+                <p>Temperature: {{ current_location_weather['current']['temp_c'] }}°C</p>
+                <p>Condition: {{ current_location_weather['current']['condition']['text'] }}</p>
+                <img src="{{ current_location_weather['current']['condition']['icon'] }}" alt="Weather icon">
+                <p>Humidity: {{ current_location_weather['current']['humidity'] }}%</p>
+                <p>Wind: {{ current_location_weather['current']['wind_kph'] }} kph {{ current_location_weather['current']['wind_dir'] }}</p>
+            </div>
+            {% endif %}
+            
+            {% if weather_data %}
+            <div class="weather-box">
+                <h2>Weather in {{ weather_data['location']['name'] }}</h2>
+                <p>Temperature: {{ weather_data['current']['temp_c'] }}°C</p>
+                <p>Condition: {{ weather_data['current']['condition']['text'] }}</p>
+                <img src="{{ weather_data['current']['condition']['icon'] }}" alt="Weather icon">
+                <p>Humidity: {{ weather_data['current']['humidity'] }}%</p>
+                <p>Wind: {{ weather_data['current']['wind_kph'] }} kph {{ weather_data['current']['wind_dir'] }}</p>
+            </div>
+            {% endif %}
+            
+            {% if forecast_data %}
+            <div class="weather-box">
+                <h2>Weather Forecast in {{ forecast_data['location']['name'] }}</h2>
+                <ul>
+                    {% for day in forecast_data['forecast']['forecastday'] %}
+                    <li>
+                        <strong>Day {{ loop.index }} ({{ day['date'] }}):</strong>
+                        <p>Temperature: {{ day['day']['avgtemp_c'] }}°C</p>
+                        <p>Condition: {{ day['day']['condition']['text'] }}</p>
+                        <img src="{{ day['day']['condition']['icon'] }}" alt="Weather icon">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
 
+        <!-- Weather Data for Popular Places -->
         <div class="weather-info">
             <h2>Weather in Popular Places</h2>
             <div class="weather-container">
                 {% for place_weather in popular_places_weather %}
-                    <div class="weather-box">
-                        <h3>{{ place_weather['location']['name'] }}</h3>
-                        <p>Temperature: {{ place_weather['current']['temp_c'] }}°C</p>
-                        <p>Condition: {{ place_weather['current']['condition']['text'] }}</p>
-                        <img src="{{ place_weather['current']['condition']['icon'] }}" alt="Weather icon">
-                    </div>
+                <div class="weather-box">
+                    <h3>{{ place_weather['location']['name'] }}</h3>
+                    <p>Temperature: {{ place_weather['current']['temp_c'] }}°C</p>
+                    <p>Condition: {{ place_weather['current']['condition']['text'] }}</p>
+                    <img src="{{ place_weather['current']['condition']['icon'] }}" alt="Weather icon">
+                </div>
                 {% endfor %}
             </div>
         </div>
+
+        <!-- Footer -->
         <footer>
             <p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
             <a href="https://www.weatherapi.com/" title="Free Weather API">
@@ -67,7 +126,5 @@
             </a>
         </footer>
     </div>
-
-
 </body>
 </html>

@@ -1,48 +1,228 @@
+/* Import a stylish font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* General Body Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f0f2f5;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
+
+/* Container */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+/* Header */
 h1 {
     text-align: center;
-}
-.weather-info {
-    margin-top: 20px;
-}
-.forecast-option {
+    font-size: 2.5em;
+    color: #4a90e2;
     margin-bottom: 20px;
 }
+
+/* Intro Text */
+.intro-text {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+form {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+input[type="text"], select, button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+
+/* Button Styles */
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #357abd;
+    transform: scale(1.05);
+}
+
+/* Error Overlay */
+.error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Darker background for more contrast */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.error-popup {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    position: relative;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.3s ease-out; /* Smooth appearance */
+}
+
+.error-popup p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    padding-right: 40px;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    line-height: 1;
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.close-btn:hover {
+    background-color: #c62828; /* Darker red on hover */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Weather Info */
+.weather-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.weather-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.weather-info li {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* Adjusted to allow items to stack vertically */
+    gap: 10px; /* Spacing between elements */
+    transition: background-color 0.3s;
+    font-size: 1em;
+    white-space: normal; /* Allows text to wrap */
+}
+
+.weather-info li:hover {
+    background-color: #f9f9f9;
+}
+
+.weather-info img {
+    width: 60px; /* Adjusted size */
+    height: auto;
+}
+
+.weather-info strong {
+    font-weight: 600;
+    margin-bottom: 5px; /* Added margin for spacing */
+}
+
+/* Adjust weather box layout to be flexible */
+.weather-box {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: auto; /* Allow width to adjust based on content */
+    max-width: 100%; /* Prevent overflow */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.weather-box img {
+    width: 50px; /* Adjusted size */
+    height: auto;
+    align-self: center;
+}
+
+
+.weather-info h2 {
+    font-size: 1.5em;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.weather-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Weather Container */
 .weather-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Adjust spacing between boxes as needed */
+    justify-content: center;
+    gap: 20px;
 }
-.weather-box {
-    border: 2px solid #000; /* Adjust border style and color as needed */
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual appeal */
-    width: calc(33% - 10px); /* Adjust width to fit three boxes per row, including gap */
-    box-sizing: border-box;
-}
+
+/* Footer */
 footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    color: #777;
 }
 
 footer a {
+    color: #4a90e2;
     text-decoration: none;
-    color: #007bff;
 }
 
-footer a img {
-    margin-top: 10px;
+footer a:hover {
+    text-decoration: underline;
 }
