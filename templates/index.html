@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .weather-info {
+            margin-top: 20px;
+        }
+        .forecast-option {
+            margin-bottom: 20px;
+        }
+        .weather-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Adjust spacing between boxes as needed */
+        }
+        .weather-box {
+            border: 2px solid #000; /* Adjust border style and color as needed */
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual appeal */
+            width: calc(33% - 10px); /* Adjust width to fit three boxes per row, including gap */
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <form method="POST">
+            <input type="text" name="city" placeholder="Enter city" required>
+            <select name="days">
+                <option value="1">Current Weather</option>
+                <option value="3">Next 3 Days</option>
+                <option value="5">Next 5 Days</option>
+                <option value="10">Next 10 Days</option>
+            </select>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if weather_data %}
+        <div class="weather-info">
+            <h2>Weather in {{ weather_data['location']['name'] }}</h2>
+            <p>Temperature: {{ weather_data['current']['temp_c'] }}°C</p>
+            <p>Condition: {{ weather_data['current']['condition']['text'] }}</p>
+            <img src="{{ weather_data['current']['condition']['icon'] }}" alt="Weather icon">
+            <p>Humidity: {{ weather_data['current']['humidity'] }}%</p>
+            <p>Wind: {{ weather_data['current']['wind_kph'] }} kph {{ weather_data['current']['wind_dir'] }}</p>
+        </div>
+        {% endif %}
+
+        {% if forecast_data %}
+        <div class="weather-info">
+            <h2>Weather Forecast in {{ forecast_data['location']['name'] }}</h2>
+            <ul>
+                {% for day in forecast_data['forecast']['forecastday'] %}
+                <li>
+                    <strong>{{ day['date'] }}:</strong>
+                    <p>Temperature: {{ day['day']['avgtemp_c'] }}°C</p>
+                    <p>Condition: {{ day['day']['condition']['text'] }}</p>
+                    <img src="{{ day['day']['condition']['icon'] }}" alt="Weather icon">
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="weather-info">
+            <h2>Weather in Popular Places</h2>
+            <div class="weather-container">
+                {% for place_weather in popular_places_weather %}
+                    <div class="weather-box">
+                        <h3>{{ place_weather['location']['name'] }}</h3>
+                        <p>Temperature: {{ place_weather['current']['temp_c'] }}°C</p>
+                        <p>Condition: {{ place_weather['current']['condition']['text'] }}</p>
+                        <img src="{{ place_weather['current']['condition']['icon'] }}" alt="Weather icon">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <footer>
+            <p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
+            <a href="https://www.weatherapi.com/" title="Free Weather API">
+                <img src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png" alt="Weather data by WeatherAPI.com" border="0">
+            </a>
+        </footer>
+    </div>
+
+
+</body>
+</html>
