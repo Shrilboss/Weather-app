@@ -75,7 +75,7 @@ The application will be running at `http://127.0.0.1:5000/` by default.
 
 ## 3. Video demo
 
-- Check out [Demo Video](demo\Weather-app-demo.mp4) to see the app in action!
+- Check out [Demo Video](https://drive.google.com/file/d/1mrZke2SGTHCj-jvhKz52NUDStXgapyZs/view?usp=sharing) to see the app in action!
   
 ## Credits
 
